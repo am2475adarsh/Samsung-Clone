@@ -495,200 +495,200 @@
 
 
     <script type="module" async>
-        (window).onload = function () {
-            // scroll logics
-            function myFunction() {
 
-                // fade girl logic
-                var testDiv = document.getElementById("snaptarget");
-                let top_off = testDiv.offsetTop;
-                let height_off = testDiv.offsetHeight;
-                let pos = top_off + height_off - 740;
+        // scroll logics
+        function myFunction() {
 
-                // 5G logic
-                var ftestDiv = document.getElementById("fiveg");
-                let ftop_off = ftestDiv.offsetTop;
-                let fpos = ftop_off;
+            // fade girl logic
+            var testDiv = document.getElementById("snaptarget");
+            let top_off = testDiv.offsetTop;
+            let height_off = testDiv.offsetHeight;
+            let pos = top_off + height_off - 740;
 
-                // battery logic
-                let battery_top = document.getElementById("battery");
-                let b_pos = battery_top.offsetTop - 300;
+            // 5G logic
+            var ftestDiv = document.getElementById("fiveg");
+            let ftop_off = ftestDiv.offsetTop;
+            let fpos = ftop_off;
 
-                // droplet logic
-                let drop = document.getElementById("galaxy-phone");
-                let g_pos = drop.offsetTop - 700;
+            // battery logic
+            let battery_top = document.getElementById("battery");
+            let b_pos = battery_top.offsetTop - 300;
 
-                return [pos, fpos, b_pos, g_pos];
-            }
+            // droplet logic
+            let drop = document.getElementById("galaxy-phone");
+            let g_pos = drop.offsetTop - 700;
+
+            return [pos, fpos, b_pos, g_pos];
+        }
 
 
-            let oldValue = 0;
-            let newValue = 0;
-            var change = 0.1;
-            var temp = 0.1;
-            let pos = myFunction();
-            var mask = 50;
-            var maskb = 50;
-            var drop1_inc = -36;
-            var drop2_decre = 38;
-            console.log(pos);
-            function snap(destination) {
-                newValue = window.pageYOffset;
+        let oldValue = 0;
+        let newValue = 0;
+        var change = 0.1;
+        var temp = 0.1;
+        let pos = myFunction();
+        var mask = 50;
+        var maskb = 50;
+        var drop1_inc = -36;
+        var drop2_decre = 38;
+        console.log(pos);
+        function snap(destination) {
+            newValue = window.pageYOffset;
+            // console.log(newValue);
+            // console.log(pos[0]);
+            // console.log(drop1_inc, drop2_decre);
+
+            // -----girl fade logic----
+            // going down and between
+            if ((oldValue < newValue) && newValue > pos[0] && newValue < (pos[0] + 700)) {
+                change = temp;
                 // console.log(newValue);
-                // console.log(pos[0]);
-                // console.log(drop1_inc, drop2_decre);
+                document.getElementById("snaptarget").style.position = "fixed";
+                document.getElementById("snaptarget").style.top = "0px";
+                change += (0.01 * (newValue) / (change * 70));
+                temp = change;
+                // alert("haan idhar");
+                document.getElementById("snaptarget").style.filter = `brightness(${change})`;
+            }
 
-                // -----girl fade logic----
-                // going down and between
-                if ((oldValue < newValue) && newValue > pos[0] && newValue < (pos[0] + 700)) {
-                    change = temp;
-                    // console.log(newValue);
-                    document.getElementById("snaptarget").style.position = "fixed";
-                    document.getElementById("snaptarget").style.top = "0px";
-                    change += (0.01 * (newValue) / (change * 70));
-                    temp = change;
-                    // alert("haan idhar");
-                    document.getElementById("snaptarget").style.filter = `brightness(${change})`;
-                }
+            // going down and below 
+            else if ((oldValue < newValue) && newValue > (pos[0] + 700)) {
+                document.getElementById("snaptarget").style.position = "relative";
+                // window.scrollTo(0, pos[0] + 700);
+            }
 
-                // going down and below 
-                else if ((oldValue < newValue) && newValue > (pos[0] + 700)) {
-                    document.getElementById("snaptarget").style.position = "relative";
-                    // window.scrollTo(0, pos[0] + 700);
-                }
+            // goind up and between
+            else if ((oldValue > newValue) && oldValue > pos[0] && oldValue < (pos[0] + 700)) {
+                change = temp;
+                document.getElementById("snaptarget").style.position = "fixed";
+                document.getElementById("snaptarget").style.top = "0px";
+                change -= Math.abs(0.01 * (newValue) / (change * 70));
+                temp = change;
+                document.getElementById("snaptarget").style.filter = `brightness(${change})`;
+            }
 
-                // goind up and between
-                else if ((oldValue > newValue) && oldValue > pos[0] && oldValue < (pos[0] + 700)) {
-                    change = temp;
-                    document.getElementById("snaptarget").style.position = "fixed";
-                    document.getElementById("snaptarget").style.top = "0px";
-                    change -= Math.abs(0.01 * (newValue) / (change * 70));
-                    temp = change;
-                    document.getElementById("snaptarget").style.filter = `brightness(${change})`;
-                }
-
-                // going up and above
-                else if ((oldValue > newValue) && oldValue < pos[0]) {
-                    document.getElementById("snaptarget").style.position = "relative";
-                    // alert("haan idhar");
-                }
+            // going up and above
+            else if ((oldValue > newValue) && oldValue < pos[0]) {
+                document.getElementById("snaptarget").style.position = "relative";
+                // alert("haan idhar");
+            }
 
 
-                // -----5G logic------
-                // going down and between
-                if ((oldValue < newValue) && newValue > (pos[1]) && newValue < pos[1] + 650) {
-                    document.getElementById("photos").style.position = "fixed";
-                    document.getElementById("photos").style.top = "0px";
-                    // console.log("down and between", pos[1]);
-                    document.getElementById("after-fiveg").style.top = "80rem";
-                    document.getElementById("fiveg-black-top-cover").style.clip = `rect(0px,1280px,${mask}vw,0px)`;
-                    mask = Math.abs(mask - 1);
-                    // console.log(mask);
-                }
+            // -----5G logic------
+            // going down and between
+            if ((oldValue < newValue) && newValue > (pos[1]) && newValue < pos[1] + 650) {
+                document.getElementById("photos").style.position = "fixed";
+                document.getElementById("photos").style.top = "0px";
+                // console.log("down and between", pos[1]);
+                document.getElementById("after-fiveg").style.top = "80rem";
+                document.getElementById("fiveg-black-top-cover").style.clip = `rect(0px,1280px,${mask}vw,0px)`;
+                mask = Math.abs(mask - 1);
+                // console.log(mask);
+            }
 
-                // going down and below
-                else if ((oldValue < newValue) && newValue > pos[1] + 650) {
-                    document.getElementById("photos").style.position = "relative";
-                    document.getElementById("after-fiveg").style.top = "0px";
-                    // console.log("below point")
-                }
+            // going down and below
+            else if ((oldValue < newValue) && newValue > pos[1] + 650) {
+                document.getElementById("photos").style.position = "relative";
+                document.getElementById("after-fiveg").style.top = "0px";
+                // console.log("below point")
+            }
 
-                // going up and between
-                else if ((oldValue > newValue) && oldValue > pos[1] && oldValue < pos[1] + 650) {
-                    document.getElementById("photos").style.position = "fixed";
-                    document.getElementById("photos").style.top = "0px";
-                    // console.log("up and between");
-                    document.getElementById("after-fiveg").style.top = "80rem";
-                    document.getElementById("fiveg-black-top-cover").style.clip = `rect(0px,1280px,${mask}vw,0px)`;
-                    mask = Math.abs(mask + 1);
-                }
+            // going up and between
+            else if ((oldValue > newValue) && oldValue > pos[1] && oldValue < pos[1] + 650) {
+                document.getElementById("photos").style.position = "fixed";
+                document.getElementById("photos").style.top = "0px";
+                // console.log("up and between");
+                document.getElementById("after-fiveg").style.top = "80rem";
+                document.getElementById("fiveg-black-top-cover").style.clip = `rect(0px,1280px,${mask}vw,0px)`;
+                mask = Math.abs(mask + 1);
+            }
 
-                // going up and above
-                else if ((oldValue > newValue) && oldValue < pos[1]) {
-                    document.getElementById("photos").style.position = "relative";
-                    // console.log("above point");
-                    document.getElementById("after-fiveg").style.top = "0px";
-                }
-
-
-                // ----battery logic-----
-                // going down and between
-                if ((oldValue < newValue) && newValue > (pos[2]) && newValue < pos[2] + 750) {
-                    document.getElementById("battery").style.position = "fixed";
-                    document.getElementById("battery-cover-2").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
-                    maskb = Math.abs(maskb - 0.75);
-                    // console.log(maskb);
-                    document.getElementById("battery").style.top = "0px";
-                    document.getElementById("after-battery").style.top = "80rem";
-                    document.getElementById("battery-cover-1").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
-
-                }
-
-                // going down and below
-                else if ((oldValue < newValue) && newValue > pos[2] + 750) {
-                    document.getElementById("battery").style.position = "relative";
-                    document.getElementById("after-battery").style.top = "0px";
-                }
-
-                // going up and between
-                else if ((oldValue > newValue) && oldValue > pos[2] && oldValue < pos[2] + 750) {
-                    document.getElementById("battery").style.position = "fixed";
-                    document.getElementById("battery").style.top = "0px";
-                    document.getElementById("after-battery").style.top = "80rem";
-                    document.getElementById("battery-cover-1").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
-                    document.getElementById("battery-cover-2").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
-                    maskb = Math.abs(maskb + 0.75);
-                }
-
-                // going up and above
-                else if ((oldValue > newValue) && oldValue < pos[2]) {
-                    document.getElementById("battery").style.position = "relative";
-                    document.getElementById("after-battery").style.top = "0px";
-                }
-
-                // -----drop logic-----
-                // going down and between
-                if ((oldValue < newValue) && newValue > (pos[3]) && newValue < pos[3] + 1500) {
-                    // alert("pohonch gye");
-                    document.getElementById("drop1").style.transform = `translate3d(0px, ${drop1_inc}px, 0px)`;
-                    document.getElementById("drop2").style.transform = `translate3d(0px, ${drop2_decre}px, 0px)`;
-                    drop1_inc = (drop1_inc + 0.5);
-                    drop2_decre = (drop2_decre - 0.5);
-                    // console.log(drop1_inc, drop2_decre);
-                }
-
-                // going down and below
-                else if ((oldValue < newValue) && newValue > pos[3] + 1250) {
-                    document.getElementById("drop1").style.transform = `translate3d(0px, 47px, 0px)`;
-                    document.getElementById("drop2").style.transform = `translate3d(0px, -89px, 0px)`;
-                }
-
-                // going up and between
-                else if ((oldValue > newValue) && oldValue > pos[3] && oldValue < pos[3] + 1250) {
-                    document.getElementById("drop1").style.transform = `translate3d(0px, ${drop1_inc}px, 0px)`;
-                    document.getElementById("drop2").style.transform = `translate3d(0px, ${drop2_decre}px, 0px)`;
-                    drop1_inc = (drop1_inc - 0.5);
-                    drop2_decre = (drop2_decre + 0.5);
-                    // console.log(drop1_inc, drop2_decre);
-                }
-
-                // going up and above
-                else if ((oldValue > newValue) && oldValue < pos[3]) {
-                    document.getElementById("drop1").style.transform = `translate3d(0px, -37px, 0px)`;
-                    document.getElementById("drop2").style.transform = `translate3d(0px, 38px, 0px)`;
-                }
+            // going up and above
+            else if ((oldValue > newValue) && oldValue < pos[1]) {
+                document.getElementById("photos").style.position = "relative";
+                // console.log("above point");
+                document.getElementById("after-fiveg").style.top = "0px";
+            }
 
 
+            // ----battery logic-----
+            // going down and between
+            if ((oldValue < newValue) && newValue > (pos[2]) && newValue < pos[2] + 750) {
+                document.getElementById("battery").style.position = "fixed";
+                document.getElementById("battery-cover-2").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
+                maskb = Math.abs(maskb - 0.75);
+                // console.log(maskb);
+                document.getElementById("battery").style.top = "0px";
+                document.getElementById("after-battery").style.top = "80rem";
+                document.getElementById("battery-cover-1").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
 
             }
-            var timeoutId = null;
-            addEventListener("scroll", function () {
-                if (timeoutId) clearTimeout(timeoutId);
-                timeoutId = setTimeout(snap, 0, parseInt(document.getElementById('snaptarget').style.top), parseInt(document.getElementById('fiveg').style.top));
-                oldValue = newValue;
-            }, true);
 
-        });
+            // going down and below
+            else if ((oldValue < newValue) && newValue > pos[2] + 750) {
+                document.getElementById("battery").style.position = "relative";
+                document.getElementById("after-battery").style.top = "0px";
+            }
+
+            // going up and between
+            else if ((oldValue > newValue) && oldValue > pos[2] && oldValue < pos[2] + 750) {
+                document.getElementById("battery").style.position = "fixed";
+                document.getElementById("battery").style.top = "0px";
+                document.getElementById("after-battery").style.top = "80rem";
+                document.getElementById("battery-cover-1").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
+                document.getElementById("battery-cover-2").style.clip = `rect(${maskb}vw,1280px,15vw,0px)`;
+                maskb = Math.abs(maskb + 0.75);
+            }
+
+            // going up and above
+            else if ((oldValue > newValue) && oldValue < pos[2]) {
+                document.getElementById("battery").style.position = "relative";
+                document.getElementById("after-battery").style.top = "0px";
+            }
+
+            // -----drop logic-----
+            // going down and between
+            if ((oldValue < newValue) && newValue > (pos[3]) && newValue < pos[3] + 1500) {
+                // alert("pohonch gye");
+                document.getElementById("drop1").style.transform = `translate3d(0px, ${drop1_inc}px, 0px)`;
+                document.getElementById("drop2").style.transform = `translate3d(0px, ${drop2_decre}px, 0px)`;
+                drop1_inc = (drop1_inc + 0.5);
+                drop2_decre = (drop2_decre - 0.5);
+                // console.log(drop1_inc, drop2_decre);
+            }
+
+            // going down and below
+            else if ((oldValue < newValue) && newValue > pos[3] + 1250) {
+                document.getElementById("drop1").style.transform = `translate3d(0px, 47px, 0px)`;
+                document.getElementById("drop2").style.transform = `translate3d(0px, -89px, 0px)`;
+            }
+
+            // going up and between
+            else if ((oldValue > newValue) && oldValue > pos[3] && oldValue < pos[3] + 1250) {
+                document.getElementById("drop1").style.transform = `translate3d(0px, ${drop1_inc}px, 0px)`;
+                document.getElementById("drop2").style.transform = `translate3d(0px, ${drop2_decre}px, 0px)`;
+                drop1_inc = (drop1_inc - 0.5);
+                drop2_decre = (drop2_decre + 0.5);
+                // console.log(drop1_inc, drop2_decre);
+            }
+
+            // going up and above
+            else if ((oldValue > newValue) && oldValue < pos[3]) {
+                document.getElementById("drop1").style.transform = `translate3d(0px, -37px, 0px)`;
+                document.getElementById("drop2").style.transform = `translate3d(0px, 38px, 0px)`;
+            }
+
+
+
+        }
+        var timeoutId = null;
+        addEventListener("scroll", function () {
+            if (timeoutId) clearTimeout(timeoutId);
+            timeoutId = setTimeout(snap, 0, parseInt(document.getElementById('snaptarget').style.top), parseInt(document.getElementById('fiveg').style.top));
+            oldValue = newValue;
+        }, true);
+
+
     </script>
 
 
